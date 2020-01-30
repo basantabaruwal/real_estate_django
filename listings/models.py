@@ -2,10 +2,12 @@ from django.db import models
 from django.utils.text import slugify
 from realtors.models import Realtor
 from datetime import datetime
+import arrow
+import humanize
 
 # Create your models here.
 class Listing(models.Model):
-    realtor = models.ForeignKey(Realtor, on_delete=models.DO_NOTHING)
+    realtor = models.ForeignKey(Realtor, on_delete=models.DO_NOTHING, )
     title = models.CharField(max_length=200, blank=False, unique=False)
     slug = models.SlugField(max_length=200, blank=True, unique=True)
     address = models.CharField(max_length=200)
@@ -39,4 +41,22 @@ class Listing(models.Model):
         self.slug = slugify(self.title)
         super(Listing, self).save(*args, *args, **kwargs)
 
+    def list_date_preety(self):
+        return self.list_date.strftime("%Y-%m-%d")
+
+    def list_date_humanized(self):
+        listed_date = arrow.get(self.list_date)
+        return listed_date.humanize()
+
+    def price_humanized(self):
+        return humanize.intword(self.price)
+
+    def price_commaed(self):
+        return humanize.intcomma(self.price)
+
+    class Meta:
+        ordering = ('-list_date',)
+
+
+        
 
