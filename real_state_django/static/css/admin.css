@@ -1,0 +1,29 @@
+#header {
+    height: 50px;
+    background-color: indigo;
+    color: #fff;
+}
+
+#branding h1 {
+    color: #eee;
+}
+
+a:link,
+a:visited {
+    color: indigo;
+}
+
+div.breadcrumbs {
+    background-color: #30caa0;
+    color: indigo;
+}
+
+div.breadcrumbs a {
+    color: #333;
+}
+
+.module h2,
+.module caption,
+.inline-group h2 {
+    background-color: #30caa0;
+}
