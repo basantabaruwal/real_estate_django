@@ -82,6 +82,15 @@ DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+        # #using PostgreSQL
+        # 'ENGINE': 'django.db.backends.postgres',
+        # 'NAME': 'real_state_db',
+        # 'USER': 'postgres',
+        # 'PASSWORD': 'password',
+        # 'HOST': 'localhost',
+        # 'PORT': '3306'
+
         # Using Mongodb
         'ENGINE': 'djongo',
         'NAME': 'real_state_db',
