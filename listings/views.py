@@ -7,9 +7,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def listings(request):
     # print("Listings: ", request.path)
-    listings = Listing.objects.all()
+    # listings = Listing.objects.all()
+    listings = Listing.objects.order_by('-list_date').filter(is_published=True)
 
-    paginator = Paginator(listings, 2)
+    paginator = Paginator(listings, 6)
     page = request.GET.get('page')
     listings_paged = paginator.get_page(page)
     # filter the published listings
@@ -19,12 +20,14 @@ def listings(request):
     }
     return render(request, 'listings/listings.html', data)
 
+
 def listing(request, listing_slug):
     listing = get_object_or_404(Listing, slug=listing_slug)
     data = {
         'listing': listing
     }
     return render(request, 'listings/listing.html', data)
+
 
 def search(request):
     return render(request, 'listings/search.html')
