@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}
+&mdash; Dashboard
+{% endblock %}
+
 {% block content %}
 
 <section id="showcase-inner" class="py-5 text-white">
@@ -7,7 +11,7 @@
         <div class="row text-center">
             <div class="col-md-12">
                 <h1 class="display-4">User Dashboard</h1>
-                <p class="lead">Manage your BT Real Estate account</p>
+                <p class="lead">Manage your Real Estate Django Account</p>
             </div>
         </div>
     </div>
@@ -19,7 +23,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="index.html">
+                    <a href="{% url 'home' %}">
                         <i class="fas fa-home"></i> Home</a>
                 </li>
                 <li class="breadcrumb-item active"> Dashboard</li>
@@ -30,9 +34,10 @@
 
 <section id="dashboard" class="py-4">
     <div class="container">
+        {% include 'partials/_alerts.html' %}
         <div class="row">
             <div class="col-md-12">
-                <h2>Welcome John</h2>
+                <h2>Welcome {{ user.first_name }}</h2>
                 <p>Here are the property listings that you have inquired about</p>
                 <table class="table">
                     <thead>

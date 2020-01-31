@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib import auth
 
 
 def register(request):
@@ -59,17 +60,34 @@ def register(request):
 
 def login(request):
     if request.method == "POST":
-        # return login form
-        return HttpResponse("Logged In")
-    else:
         # implement logging in logic
-        return render(request, 'auth/login.html')
+        username = request.POST['username']
+        password = request.POST['password']
+
+        # attempt to login
+        user = auth.authenticate(username=username, password=password)
+        if user is not None: # user exists
+            auth.login(request, user)
+            messages.success(request, "You're now Logged In")
+            return redirect('dashboard')
+        else: # user doesn't exist
+            messages.error(request, "Invalid Credentials!")
+            return redirect('login')
+
+    else:
+        # return login form
+        data = {
+            'page_title': 'Login'
+        }
+        return render(request, 'auth/login.html', data)
 
 
 def logout(request):
     if request.method == 'POST':
         # Implement Logout logic
+        auth.logout(request)
         # if logout successfull, redirect to home
+        messages.info(request, "You're logged out.")
         return redirect('home')
 
     return HttpResponse('Logged Out')

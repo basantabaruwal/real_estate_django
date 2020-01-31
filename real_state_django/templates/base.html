@@ -15,7 +15,14 @@
     <!-- Lightbox -->
     <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
 
-    <title>Real State Django</title>
+    <title>Real Estate Django{% block title  %}{% endblock %}</title>
+
+    <!-- or send the page title from the view-->
+    <!--
+    <title>Real Estate Django
+        {% if page_title %} &mdash; {{ page_title}} {% endif %}
+    </title>
+-->
 </head>
 
 <body>
