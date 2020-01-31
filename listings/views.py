@@ -8,12 +8,12 @@ from .choices import state_choices, bedroom_choices, price_choices
 
 
 def listings(request):
-    print('****************listings called**************')
+    # print('****************listings called**************')
     # print("Listings: ", request.path)
     # listings = Listing.objects.all()
     listings = Listing.objects.order_by('-list_date').filter(is_published=True)
 
-    paginator = Paginator(listings, 6)
+    paginator = Paginator(listings, 3)
     page = request.GET.get('page')
     listings_paged = paginator.get_page(page)
     # filter the published listings
@@ -25,7 +25,7 @@ def listings(request):
 
 
 def listing(request, listing_slug):
-    print('****************listing called**************')
+    # print('****************listing called**************')
     listing = get_object_or_404(Listing, slug=listing_slug)
     seller_of_month = Realtor.objects.filter(is_mvp=True)
     # print(seller_of_month)
@@ -37,13 +37,16 @@ def listing(request, listing_slug):
 
 
 def search(request):
-    print('****************search called**************')
+    # print('****************search called**************')
     city = request.GET.get('city')
     state = request.GET.get('state')
-    print("***********city: {}, state: {}".format(city, state))
+
+    queryset_list = Listing.objects.order_by('-list_date')
+    # print("***********city: {}, state: {}".format(city, state))
     data = {
         'state_choices': state_choices,
         'bedroom_choices': bedroom_choices,
-        'price_choices': price_choices
+        'price_choices': price_choices,
+        'listings': queryset_list,
     }
     return render(request, 'listings/search.html', data)
