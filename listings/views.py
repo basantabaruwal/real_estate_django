@@ -4,6 +4,7 @@ from .models import Listing
 # for pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from realtors.models import Realtor
+from .choices import state_choices, bedroom_choices, price_choices
 
 
 def listings(request):
@@ -37,4 +38,12 @@ def listing(request, listing_slug):
 
 def search(request):
     print('****************search called**************')
-    return render(request, 'listings/search.html')
+    city = request.GET.get('city')
+    state = request.GET.get('state')
+    print("***********city: {}, state: {}".format(city, state))
+    data = {
+        'state_choices': state_choices,
+        'bedroom_choices': bedroom_choices,
+        'price_choices': price_choices
+    }
+    return render(request, 'listings/search.html', data)
