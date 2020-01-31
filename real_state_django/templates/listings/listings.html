@@ -50,29 +50,36 @@
                         <div class="listing-heading text-center">
                             <h4 class="text-primary">{{ listing.title }}</h4>
                             <p>
-                                <i class="fas fa-map-marker text-secondary"></i>{{ listing.city }}, {{listing.state}}</p>
+                                <i class="fas fa-map-marker text-secondary"></i>{{ listing.city }}, {{listing.state}}
+                            </p>
                         </div>
                         <hr>
                         <div class="row py-2 text-secondary">
                             <div class="col-6">
-                                <i class="fas fa-th-large"></i> Sqft: {{ listing.sqft }}</div>
+                                <i class="fas fa-th-large"></i> Sqft: {{ listing.sqft }}
+                            </div>
                             <div class="col-6">
-                                <i class="fas fa-car"></i> Garage: {{ listing.garage }}</div>
+                                <i class="fas fa-car"></i> Garage: {{ listing.garage }}
+                            </div>
                         </div>
                         <div class="row py-2 text-secondary">
                             <div class="col-6">
-                                <i class="fas fa-bed"></i> Bedrooms: {{ listing.bedrooms }}</div>
+                                <i class="fas fa-bed"></i> Bedrooms: {{ listing.bedrooms }}
+                            </div>
                             <div class="col-6">
-                                <i class="fas fa-bath"></i> Bathrooms: {{ listing.bathrooms }}</div>
+                                <i class="fas fa-bath"></i> Bathrooms: {{ listing.bathrooms }}
+                            </div>
                         </div>
                         <hr>
                         <div class="row py-2 text-secondary">
                             <div class="col-12">
-                                <i class="fas fa-user"></i> {{ listing.realtor.name }}</div>
+                                <i class="fas fa-user"></i> {{ listing.realtor.name }}
+                            </div>
                         </div>
                         <div class="row text-secondary pb-2">
                             <div class="col-12">
-                                {% comment %} <i class="fas fa-clock"></i> {{ listing.list_date_humanized }} {% endcomment %}
+{#                                 <i class="fas fa-clock"></i> {{ listing.list_date_humanized }}#}
+
                                 <i class="fas fa-clock"></i> {{ listing.list_date | timesince}}
                             </div>
                         </div>
@@ -94,10 +101,10 @@
         </div>
 
 
-<!--        PAGINATION-->
+        <!--        PAGINATION-->
         <div class="row">
             <div class="col-md-12">
-            {% if listings.has_other_pages %}
+                {% if listings.has_other_pages %}
                 <ul class="pagination">
                     {% if listings.has_previous %}
                     <li class="page-item">
@@ -121,7 +128,7 @@
                     {% endif %}
                     {% endfor %}
 
-                    
+
                     {% if listings.has_next %}
                     <li class="page-item">
                         <a class="page-link" href="?page={{listings.next_page_number}}">&raquo;</a>
@@ -137,7 +144,6 @@
         </div>
     </div>
 </section>
-
 
 
 {% endblock %}
