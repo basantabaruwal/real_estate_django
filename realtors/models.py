@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import datetime
 
-# Create your models here.
+
 class Realtor(models.Model):
     name = models.CharField(max_length=100)
     photo = models.ImageField(upload_to="images/%Y%m%d/")
