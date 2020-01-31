@@ -78,8 +78,7 @@
     </div>
 </section>
 
-
 <!-- Listings Partial-->
-{% include 'partials/_listings.html' with message_empty_listing="Sorry, no listings found matching your search area" %}
+{% include 'partials/_listings.html' with listings=listings message_heading=listings|length message_empty_listing="Sorry, no listings found matching your search area" %}
 
 {% endblock %}

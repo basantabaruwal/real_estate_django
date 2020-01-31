@@ -38,11 +38,38 @@ def listing(request, listing_slug):
 
 def search(request):
     # print('****************search called**************')
-    city = request.GET.get('city')
-    state = request.GET.get('state')
-
     queryset_list = Listing.objects.order_by('-list_date')
-    # print("***********city: {}, state: {}".format(city, state))
+    # keywords
+    if 'keywords' in request.GET:
+        keywords = request.GET['keywords']
+        if keywords:
+            queryset_list = queryset_list.filter(description__icontains=keywords) # use contains for case sensitive not icontains
+    
+    # city
+    if 'city' in request.GET:
+        city = request.GET['city']
+        if city:
+            queryset_list = queryset_list.filter(city__iexact=city) # use exact for case sensitive not iexact
+    
+    # state
+    if 'state' in request.GET:
+        state = request.GET['state']
+        if state:
+            queryset_list = queryset_list.filter(state__iexact=state) # use exact for case sensitive not iexact
+
+    # bedrooms
+    if 'bedrooms' in request.GET:
+        bedrooms = request.GET['bedrooms']
+        if bedrooms:
+            queryset_list = queryset_list.filter(bedrooms__lte=bedrooms) # use exact for case sensitive not iexact
+
+    # price
+    if 'price' in request.GET:
+        price = request.GET['price']
+        print(price)
+        if price:
+            queryset_list = queryset_list.filter(price__lte=price) # use exact for case sensitive not iexact
+
     data = {
         'state_choices': state_choices,
         'bedroom_choices': bedroom_choices,

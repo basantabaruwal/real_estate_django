@@ -5,6 +5,13 @@
     <div class="container">
         <div class="row">
 
+            {% if message_heading and listings %}
+            <div class="col-md-12 text-center">
+                <h3 class="grey-text">{{message_heading}} listing(s) match your search criteria.</h3>
+                <hr>
+            </div>
+            {% endif %}
+
             <!-- Listing 1 -->
             {% if listings %}
             {% for listing in listings %}
