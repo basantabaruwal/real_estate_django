@@ -3,9 +3,11 @@ from django.utils.text import slugify
 from .models import Listing
 # for pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from realtors.models import Realtor
 
 
 def listings(request):
+    print('****************listings called**************')
     # print("Listings: ", request.path)
     # listings = Listing.objects.all()
     listings = Listing.objects.order_by('-list_date').filter(is_published=True)
@@ -22,12 +24,17 @@ def listings(request):
 
 
 def listing(request, listing_slug):
+    print('****************listing called**************')
     listing = get_object_or_404(Listing, slug=listing_slug)
+    seller_of_month = Realtor.objects.filter(is_mvp=True)
+    # print(seller_of_month)
     data = {
-        'listing': listing
+        'listing': listing,
+        'seller_of_month': seller_of_month
     }
     return render(request, 'listings/listing.html', data)
 
 
 def search(request):
+    print('****************search called**************')
     return render(request, 'listings/search.html')
