@@ -4,6 +4,8 @@ from .models import Contact
 from datetime import datetime
 from django.contrib import messages
 import json
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def contact(request):
@@ -40,7 +42,24 @@ def contact(request):
         try:
             contact = Contact(listing=listing, listing_id=listing_id, name=name, email=email,
                               phone=phone, message=message, user_id=user_id)
+
+            try:
+            # send the mail to corresponding realtor
+                send_mail(
+                    'Property Listing Inquiry',
+                    'There has been an inquiry for '+ listing +'. Sign into the admin panel for more info.',
+                    settings.EMAIL_HOST_USER,
+                    [realtor_email, 'baruwalbasanta@gmail.com'],
+                    fail_silently=False
+                )
+            except:
+                # email couldn't be sent
+                # messages.error(request, "Email couln't be sent to the realtor!!")
+                pass
+            
+            # save the contact
             contact.save()
+
             messages.success(
                 request, "Thank you for your inquiry. Our realtor {} will contact you soon.".format(realtor_name))
         except:

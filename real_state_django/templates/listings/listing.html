@@ -38,7 +38,7 @@
 <!-- Listing -->
 <section id="listing" class="py-4">
     <div class="container">
-    <!-- Alerts -->
+        <!-- Alerts -->
         {% include 'partials/_alerts.html' %}
         <a href="{% url 'listings' %}" class="btn btn-light mb-4">Back To Listings</a>
         <div class="row">
@@ -181,11 +181,13 @@
             <div class="modal-body">
                 <form action="{% url 'contact' %}" method="POST">
                     {% csrf_token %}
+                    <!--
                     {% if user.is_authenticated %}
                     <input type="hidden" name="user_id" value="{{user.id}}">
                     {% else %}
                     <input type="hidden" name="user_id" value="0">
                     {% endif %}
+                    -->
                     <input type="hidden" name="realtor_name" value="{{listing.realtor.name}}">
                     <input type="hidden" name="realtor_email" value="{{listing.realtor.email}}">
                     <input type="hidden" name="listing_id" value="{{listing.id}}">
