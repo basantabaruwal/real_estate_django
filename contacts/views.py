@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .models import Contact
-from datetime import datetime
+# from datetime import datetime
 from django.contrib import messages
 import json
 
@@ -20,7 +20,7 @@ def contact(request):
         user_id = request.POST['user_id']
 
         contact = Contact(listing=listing, listing_id=listing_id, name=name, email=email,
-                          phone=phone, message=message, contact_date=datetime.now, user_id=user_id)
+                          phone=phone, message=message, user_id=user_id)
 
         try:
             contact.save()
