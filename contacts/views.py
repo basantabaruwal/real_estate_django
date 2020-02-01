@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .models import Contact
-# from datetime import datetime
+from datetime import datetime
 from django.contrib import messages
 import json
 
@@ -17,12 +17,29 @@ def contact(request):
         message = request.POST['message']
         realtor_name = request.POST['realtor_name']
         realtor_email = request.POST['realtor_email']
-        user_id = request.POST['user_id']
+        # user_id = request.POST['user_id']
 
-        contact = Contact(listing=listing, listing_id=listing_id, name=name, email=email,
-                          phone=phone, message=message, user_id=user_id)
+        # defult user_id
+        user_id = 0
+
+        # check if the inquiry is duplicate
+        # current_user = request.user
+        # print("Current User: ",current_user)
+        # if user_id != '0':
+        if request.user.is_authenticated:
+            # user is authenticated
+            user_id = request.user.id
+            has_inquired = Contact.objects.filter(
+                user_id=user_id, listing_id=listing_id).exists()
+            if has_inquired:
+                # duplicate inquiry
+                messages.error(
+                    request, "You've already made an inquiry for this property.")
+                return redirect(request.META['HTTP_REFERER'])
 
         try:
+            contact = Contact(listing=listing, listing_id=listing_id, name=name, email=email,
+                              phone=phone, message=message, user_id=user_id)
             contact.save()
             messages.success(
                 request, "Thank you for your inquiry. Our realtor {} will contact you soon.".format(realtor_name))

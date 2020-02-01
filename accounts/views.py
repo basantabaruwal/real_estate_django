@@ -16,6 +16,7 @@ def register(request):
         password = request.POST['password']
         password2 = request.POST['password2']
 
+
         # check if the passwords match
         if password == password2:
             # check for duplicate username
