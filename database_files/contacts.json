@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5e35174b69ee3f6eac02dc3b"},"id":{"$numberInt":"1"},"listing":"18 Jeferson Lane","listing_id":{"$numberInt":"2"},"listing_slug":"18-jeferson-lane","name":"Basanta Baruwal","email":"baruwalbasanta@gmail.com","phone":"9846333597","message":"Let's talk.","contact_date":{"$date":{"$numberLong":"1580558375431"}},"user_id":{"$numberInt":"2"}}
