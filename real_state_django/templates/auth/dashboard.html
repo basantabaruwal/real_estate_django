@@ -34,6 +34,7 @@
 
 <section id="dashboard" class="py-4">
     <div class="container">
+        <!-- Alerts -->
         {% include 'partials/_alerts.html' %}
         <div class="row">
             <div class="col-md-12">
@@ -48,27 +49,21 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for inquiry in inquiries %}
                         <tr>
-                            <td>22</td>
-                            <td>45 Drivewood Circle</td>
+                            <td>{{ inquiry.id }}</td>
+                            <td>{{ inquiry.listing }}</td>
                             <td>
-                                <a class="btn btn-light" href="#">View Listing</a>
+                                <a class="btn btn-light" href="{% url 'listing' inquiry.listing_slug %}">View Listing</a>
                             </td>
                         </tr>
+                        {% empty %}
                         <tr>
-                            <td>43</td>
-                            <td>22 Westbrook rd</td>
-                            <td>
-                                <a class="btn btn-light" href="#">View Listing</a>
-                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>No inquiries found.</td>
                         </tr>
-                        <tr>
-                            <td>31</td>
-                            <td>12 Samson Ave</td>
-                            <td>
-                                <a class="btn btn-light" href="#">View Listing</a>
-                            </td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

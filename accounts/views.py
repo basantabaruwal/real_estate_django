@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib import auth
+from contacts.models import Contact
 
 
 def register(request):
@@ -95,4 +96,8 @@ def logout(request):
 
 
 def dashboard(request):
-    return render(request, 'auth/dashboard.html')
+    user_inquiries = Contact.objects.filter(user_id=request.user.id)
+    data = {
+        'inquiries': user_inquiries
+    }
+    return render(request, 'auth/dashboard.html', data)

@@ -13,6 +13,7 @@ def contact(request):
     if request.method == 'POST':
         listing_id = request.POST['listing_id']
         listing = request.POST['listing']
+        listing_slug = request.POST['listing_slug']
         name = request.POST['name']
         email = request.POST['email']
         phone = request.POST['phone']
@@ -39,23 +40,25 @@ def contact(request):
                     request, "You've already made an inquiry for this property.")
                 return redirect(request.META['HTTP_REFERER'])
 
+        # if True:
         try:
-            contact = Contact(listing=listing, listing_id=listing_id, name=name, email=email,
+            contact = Contact(listing=listing, listing_id=listing_id, listing_slug=listing_slug, name=name, email=email,
                               phone=phone, message=message, user_id=user_id)
 
-            try:
-            # send the mail to corresponding realtor
-                send_mail(
-                    'Property Listing Inquiry',
-                    'There has been an inquiry for '+ listing +'. Sign into the admin panel for more info.',
-                    settings.EMAIL_HOST_USER,
-                    [realtor_email, 'baruwalbasanta@gmail.com'],
-                    fail_silently=False
-                )
-            except:
-                # email couldn't be sent
-                # messages.error(request, "Email couln't be sent to the realtor!!")
-                pass
+            # # selnding the email
+            # try:
+            # # send the mail to corresponding realtor
+            #     send_mail(
+            #         'Property Listing Inquiry',
+            #         'There has been an inquiry for '+ listing +'. Sign into the admin panel for more info.',
+            #         settings.EMAIL_HOST_USER,
+            #         [realtor_email, 'baruwalbasanta@gmail.com'],
+            #         fail_silently=False
+            #     )
+            # except:
+            #     # email couldn't be sent
+            #     # messages.error(request, "Email couln't be sent to the realtor!!")
+            #     pass
             
             # save the contact
             contact.save()

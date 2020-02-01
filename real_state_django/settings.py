@@ -99,7 +99,7 @@ DATABASES = {
 
         # Using Mongodb
         'ENGINE': 'djongo',
-        'NAME': 'real_state_db',
+        'NAME': 'real_estate_db',
     }
 }
 
