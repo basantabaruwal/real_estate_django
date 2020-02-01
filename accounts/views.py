@@ -96,7 +96,7 @@ def logout(request):
 
 
 def dashboard(request):
-    user_inquiries = Contact.objects.filter(user_id=request.user.id)
+    user_inquiries = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
     data = {
         'inquiries': user_inquiries
     }
